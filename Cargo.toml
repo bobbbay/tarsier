@@ -2,3 +2,14 @@
 name = "tarsier"
 version = "0.1.0"
 edition = "2021"
+
+[dependencies]
+async-stream = "0.3.5"
+atomic = "0.5.3"
+flume = "0.10.14"
+futures = "0.3.28"
+noptics = { git = "https://github.com/bobbbay/noptics", version = "0.1.0" }
+tokio = { version = "1.28.2", features = ["full"] }
+
+[dev-dependencies]
+druid-derive = "0.5.1"
