@@ -1,0 +1,31 @@
+#+title: Tarsier
+
+Unidirectional, event-based, asynchronous flow of ~Copy~-able data.
+
+** Unidirectional
+
+Think of Tarsier as a data structure that manages a very strict, conceptually functional flow of data. The flow of data in Tarsier looks like the following:
+
+#+begin_src haskell
+input : () -> InputtedState
+layer_a : InputtedState -> LayeredAState
+layer_b : LayeredAState -> LayeredBState
+output : LayeredBState -> ()
+#+end_src
+
+** Event-based
+
+Tarsier is event-based. Layers specify the transformations of the insides of each data structure, and Tarsier only calls the necessary transforms when its corresponding data has changed.
+
+#+begin_src rust
+struct InputtedState {
+    data_1: SomeData1,
+    data_2: SomeData2,
+}
+#+end_src
+
+Now, let's say the ~input~ layer has observed a change in the real world and updates data_1. According to the mappings laid out by the next layer, ~data_2~ would stay the same. Therefore, Tarsier will only call the necessary mappings for ~data_1~, leaving ~data_2~ unchanged. This kind of event-based programming eliminates the re-serialization of large amounts of data.
+
+** Asynchronous
+
+Everything in Tarsier is asynchronous, thread-safe, and atomic when possible thanks to the [[https://github.com/bobbbay/noptics][noptics]] library.
